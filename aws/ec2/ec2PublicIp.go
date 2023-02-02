@@ -11,11 +11,11 @@ func CheckIfEC2PublicIP(checkConfig commons.CheckConfig, instances []types.Insta
 	for _, instance := range instances {
 		if instance.PublicIpAddress != nil {
 			Message := "EC2 instance " + *instance.InstanceId + " has a public IP" + *instance.PublicIpAddress
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *instance.InstanceId}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetInstanceArn(checkConfig.ConfigAWS, instance)}
 			check.AddResult(result)
 		} else {
 			Message := "EC2 instance " + *instance.InstanceId + " has no public IP "
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *instance.InstanceId}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetInstanceArn(checkConfig.ConfigAWS, instance)}
 			check.AddResult(result)
 		}
 	}

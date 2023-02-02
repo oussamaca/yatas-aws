@@ -11,11 +11,11 @@ func CheckIfStandardLogginEnabled(checkConfig commons.CheckConfig, d []SummaryTo
 
 		if cc.config.Logging != nil && cc.config.Logging.Enabled != nil && *cc.config.Logging.Enabled {
 			Message := "Standard logging is enabled on " + *cc.summary.Id
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *cc.summary.Id}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: *cc.summary.ARN}
 			check.AddResult(result)
 		} else {
 			Message := "Standard logging is not enabled on " + *cc.summary.Id
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *cc.summary.Id}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *cc.summary.ARN}
 			check.AddResult(result)
 		}
 	}

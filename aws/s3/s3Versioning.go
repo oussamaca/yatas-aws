@@ -10,11 +10,11 @@ func CheckIfBucketObjectVersioningEnabled(checkConfig commons.CheckConfig, bucke
 	for _, bucket := range buckets {
 		if !bucket.Versioning {
 			Message := "S3 bucket " + bucket.BucketName + " is not using object versioning"
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: bucket.BucketName}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, bucket.BucketName)}
 			check.AddResult(result)
 		} else {
 			Message := "S3 bucket " + bucket.BucketName + " is using object versioning"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: bucket.BucketName}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, bucket.BucketName)}
 			check.AddResult(result)
 		}
 

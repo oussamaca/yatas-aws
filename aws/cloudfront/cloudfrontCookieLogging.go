@@ -10,11 +10,11 @@ func CheckIfCookieLogginEnabled(checkConfig commons.CheckConfig, d []SummaryToCo
 	for _, cc := range d {
 		if cc.config.Logging != nil && *cc.config.Logging.Enabled && cc.config.Logging.IncludeCookies != nil && *cc.config.Logging.IncludeCookies {
 			Message := "Cookie logging is enabled on " + *cc.summary.Id
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *cc.summary.Id}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: *cc.summary.ARN}
 			check.AddResult(result)
 		} else {
 			Message := "Cookie logging is not enabled on " + *cc.summary.Id
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *cc.summary.Id}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *cc.summary.ARN}
 			check.AddResult(result)
 		}
 	}

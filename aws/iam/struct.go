@@ -22,10 +22,12 @@ type Statement struct {
 
 type UserPolicies struct {
 	UserName string
+	UserArn  string
 	Policies []Policy
 }
 
 type RolePolicies struct {
 	RoleName string
+	RoleArn  string
 	Policies []Policy
 }

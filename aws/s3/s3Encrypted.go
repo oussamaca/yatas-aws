@@ -10,11 +10,11 @@ func checkIfEncryptionEnabled(checkConfig commons.CheckConfig, buckets []S3ToEnc
 	for _, bucket := range buckets {
 		if !bucket.Encrypted {
 			Message := "S3 bucket " + bucket.BucketName + " is not using encryption"
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: bucket.BucketName}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, bucket.BucketName)}
 			check.AddResult(result)
 		} else {
 			Message := "S3 bucket " + bucket.BucketName + " is using encryption"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: bucket.BucketName}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, bucket.BucketName)}
 			check.AddResult(result)
 		}
 

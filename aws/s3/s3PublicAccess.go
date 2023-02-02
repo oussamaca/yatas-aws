@@ -10,11 +10,11 @@ func CheckIfS3PublicAccessBlockEnabled(checkConfig commons.CheckConfig, s3toPubl
 	for _, bucket := range s3toPublicBlockAccess {
 		if !bucket.Config {
 			Message := "S3 bucket " + bucket.BucketName + " is not using Public Access Block"
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: bucket.BucketName}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, bucket.BucketName)}
 			check.AddResult(result)
 		} else {
 			Message := "S3 bucket " + bucket.BucketName + " is using Public Access Block"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: bucket.BucketName}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, bucket.BucketName)}
 			check.AddResult(result)
 		}
 	}

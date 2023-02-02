@@ -12,7 +12,7 @@ func CheckIfAllVolumesHaveSnapshots(checkConfig commons.CheckConfig, snapshot2Vo
 		for _, snapshot := range snapshot2Volumes.Snapshot {
 			if *snapshot.VolumeId == *volume.VolumeId {
 				Message := "Volume " + *volume.VolumeId + " has snapshot " + *snapshot.SnapshotId
-				result := commons.Result{Status: "OK", Message: Message, ResourceID: *volume.VolumeId}
+				result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVolumeArn(checkConfig.ConfigAWS, volume)}
 				check.AddResult(result)
 				ok = true
 				break
@@ -20,7 +20,7 @@ func CheckIfAllVolumesHaveSnapshots(checkConfig commons.CheckConfig, snapshot2Vo
 		}
 		if !ok {
 			Message := "Volume " + *volume.VolumeId + " has no snapshot"
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *volume.VolumeId}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVolumeArn(checkConfig.ConfigAWS, volume)}
 			check.AddResult(result)
 		}
 	}

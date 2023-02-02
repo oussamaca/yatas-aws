@@ -160,3 +160,8 @@ func GetFlowLogsForVpc(s aws.Config, vpcs []types.Vpc) []VpcToFlowLogs {
 	}
 	return vpcFlowLogs
 }
+
+// GetVPCArn returns the arn of a vpc
+func GetVPCArn(s aws.Config, vpcId string) string {
+	return "arn:aws:ec2:" + s.Region + "::vpc/" + vpcId
+}

@@ -12,11 +12,11 @@ func CheckIfStagesCloudwatchLogsExist(checkConfig commons.CheckConfig, stages ma
 		for _, stage := range id {
 			if stage.AccessLogSettings != nil && stage.AccessLogSettings.DestinationArn != nil {
 				Message := "Cloudwatch logs are enabled on stage " + *stage.StageName + " of ApiGateway " + apigateway
-				result := commons.Result{Status: "OK", Message: Message, ResourceID: *stage.StageName}
+				result := commons.Result{Status: "OK", Message: Message, ResourceID: GetStageArn(checkConfig.ConfigAWS, apigateway, stage)}
 				check.AddResult(result)
 			} else {
 				Message := "Cloudwatch logs are not enabled on " + *stage.StageName + " of ApiGateway " + apigateway
-				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *stage.StageName}
+				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetStageArn(checkConfig.ConfigAWS, apigateway, stage)}
 				check.AddResult(result)
 			}
 		}

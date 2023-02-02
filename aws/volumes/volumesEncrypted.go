@@ -11,11 +11,11 @@ func checkIfEncryptionEnabled(checkConfig commons.CheckConfig, volumes []types.V
 	for _, volume := range volumes {
 		if volume.Encrypted != nil && *volume.Encrypted {
 			Message := "EC2 encryption is enabled on " + *volume.VolumeId
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *volume.VolumeId}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVolumeArn(checkConfig.ConfigAWS, volume)}
 			check.AddResult(result)
 		} else {
 			Message := "EC2 encryption is not enabled on " + *volume.VolumeId
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *volume.VolumeId}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVolumeArn(checkConfig.ConfigAWS, volume)}
 			check.AddResult(result)
 		}
 	}

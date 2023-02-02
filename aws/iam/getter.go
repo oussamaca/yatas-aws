@@ -60,6 +60,7 @@ func GetAllRoles(s aws.Config) []types.Role {
 
 type MFAForUser struct {
 	UserName string
+	UserArn  string
 	MFAs     []types.MFADevice
 }
 
@@ -77,6 +78,7 @@ func GetMfaForUsers(s aws.Config, u []types.User) []MFAForUser {
 		}
 		mfaForUsers = append(mfaForUsers, MFAForUser{
 			UserName: *user.UserName,
+			UserArn:  *user.Arn,
 			MFAs:     result.MFADevices,
 		})
 		for {
@@ -85,6 +87,7 @@ func GetMfaForUsers(s aws.Config, u []types.User) []MFAForUser {
 				result, err = svc.ListMFADevices(context.TODO(), input)
 				mfaForUsers = append(mfaForUsers, MFAForUser{
 					UserName: *user.UserName,
+					UserArn:  *user.Arn,
 					MFAs:     result.MFADevices,
 				})
 				if err != nil {
@@ -100,6 +103,7 @@ func GetMfaForUsers(s aws.Config, u []types.User) []MFAForUser {
 
 type AccessKeysForUser struct {
 	UserName   string
+	UserArn    string
 	AccessKeys []types.AccessKeyMetadata
 }
 
@@ -117,6 +121,7 @@ func GetAccessKeysForUsers(s aws.Config, u []types.User) []AccessKeysForUser {
 		}
 		accessKeysForUsers = append(accessKeysForUsers, AccessKeysForUser{
 			UserName:   *user.UserName,
+			UserArn:    *user.Arn,
 			AccessKeys: result.AccessKeyMetadata,
 		})
 		for {
@@ -125,6 +130,7 @@ func GetAccessKeysForUsers(s aws.Config, u []types.User) []AccessKeysForUser {
 				result, err = svc.ListAccessKeys(context.TODO(), input)
 				accessKeysForUsers = append(accessKeysForUsers, AccessKeysForUser{
 					UserName:   *user.UserName,
+					UserArn:    *user.Arn,
 					AccessKeys: result.AccessKeyMetadata,
 				})
 				if err != nil {
@@ -159,6 +165,7 @@ func GetUserPolicies(users []types.User, s aws.Config) []UserPolicies {
 
 type UserToPoliciesElevate struct {
 	UserName string
+	UserArn  string
 	Policies [][]string
 }
 
@@ -169,6 +176,7 @@ func GetUserToPoliciesElevate(userPolicies []UserPolicies) []UserToPoliciesEleva
 		if elevation != nil {
 			usersElevatedPolicies = append(usersElevatedPolicies, UserToPoliciesElevate{
 				UserName: user.UserName,
+				UserArn:  user.UserArn,
 				Policies: elevation,
 			})
 		}
@@ -195,7 +203,7 @@ func GetAllPolicyForUser(wg *sync.WaitGroup, queueCheck chan UserPolicies, s aws
 		}
 	}()
 	wgpolicy.Wait()
-	queueCheck <- UserPolicies{*user.UserName, policyList}
+	queueCheck <- UserPolicies{*user.UserName, *user.Arn, policyList}
 }
 
 func GetPolicyDocument(wg *sync.WaitGroup, queue chan *string, s aws.Config, policyArn *string) {
@@ -259,6 +267,7 @@ func GetRolePolicies(roles []types.Role, s aws.Config) []RolePolicies {
 
 type RoleToPoliciesElevate struct {
 	RoleName string
+	RoleArn  string
 	Policies [][]string
 }
 
@@ -269,6 +278,7 @@ func GetRoleToPoliciesElevate(rolePolicies []RolePolicies) []RoleToPoliciesEleva
 		if elevation != nil {
 			rolesElevatedPolicies = append(rolesElevatedPolicies, RoleToPoliciesElevate{
 				RoleName: role.RoleName,
+				RoleArn:  role.RoleArn,
 				Policies: elevation,
 			})
 		}
@@ -295,7 +305,7 @@ func GetAllPolicyForRole(wg *sync.WaitGroup, queueCheck chan RolePolicies, s aws
 		}
 	}()
 	wgpolicy.Wait()
-	queueCheck <- RolePolicies{*role.RoleName, policyList}
+	queueCheck <- RolePolicies{*role.RoleName, *role.Arn, policyList}
 }
 
 func GetPolicyAttachedToRole(s aws.Config, role types.Role) []types.AttachedPolicy {

@@ -11,11 +11,11 @@ func CheckIfMonitoringEnabled(checkConfig commons.CheckConfig, instances []types
 	for _, instance := range instances {
 		if instance.Monitoring.State != types.MonitoringStateEnabled {
 			Message := "EC2 instance " + *instance.InstanceId + " has no monitoring enabled"
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *instance.InstanceId}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetInstanceArn(checkConfig.ConfigAWS, instance)}
 			check.AddResult(result)
 		} else {
 			Message := "EC2 instance " + *instance.InstanceId + " has monitoring enabled"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *instance.InstanceId}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetInstanceArn(checkConfig.ConfigAWS, instance)}
 			check.AddResult(result)
 		}
 	}

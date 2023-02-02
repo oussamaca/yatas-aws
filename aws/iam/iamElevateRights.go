@@ -19,12 +19,12 @@ func CheckIfUserCanElevateRights(checkConfig commons.CheckConfig, userToPolocies
 			} else {
 				Message = "User " + userPol.UserName + " can elevate rights with " + fmt.Sprint(userPol.Policies)
 			}
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: userPol.UserName}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: userPol.UserArn}
 			check.AddResult(result)
 
 		} else {
 			Message := "User " + userPol.UserName + " cannot elevate rights"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: userPol.UserName}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: userPol.UserArn}
 			check.AddResult(result)
 		}
 	}
@@ -42,12 +42,12 @@ func CheckIfRoleCanElevateRights(checkConfig commons.CheckConfig, roleToPolicies
 			} else {
 				Message = "Role " + rolePol.RoleName + " can elevate rights with " + fmt.Sprint(rolePol.Policies)
 			}
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: rolePol.RoleName}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: rolePol.RoleArn}
 			check.AddResult(result)
 
 		} else {
 			Message := "Role " + rolePol.RoleName + " cannot elevate rights"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: rolePol.RoleName}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: rolePol.RoleArn}
 			check.AddResult(result)
 		}
 	}

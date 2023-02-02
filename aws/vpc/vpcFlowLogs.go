@@ -9,11 +9,11 @@ func checkIfVPCFLowLogsEnabled(checkConfig commons.CheckConfig, VpcFlowLogs []Vp
 
 		if len(vpcFlowLog.FlowLogs) == 0 {
 			Message := "VPC Flow Logs are not enabled on " + vpcFlowLog.VpcID
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: vpcFlowLog.VpcID}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, vpcFlowLog.VpcID)}
 			check.AddResult(result)
 		} else {
 			Message := "VPC Flow Logs are enabled on " + vpcFlowLog.VpcID
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: vpcFlowLog.VpcID}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, vpcFlowLog.VpcID)}
 			check.AddResult(result)
 		}
 	}

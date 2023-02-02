@@ -13,11 +13,11 @@ func CheckIfCloudfrontTLS1_2Minimum(checkConfig commons.CheckConfig, d []types.D
 	for _, cloudfront := range d {
 		if cloudfront.ViewerCertificate != nil && strings.Contains(string(cloudfront.ViewerCertificate.MinimumProtocolVersion), "TLSv1.2") {
 			Message := "TLS 1.2 minimum is set on " + *cloudfront.Id
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *cloudfront.Id}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: *cloudfront.ARN}
 			check.AddResult(result)
 		} else {
 			Message := "TLS 1.2 minimum is not set on " + *cloudfront.Id
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *cloudfront.Id}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *cloudfront.ARN}
 			check.AddResult(result)
 		}
 	}

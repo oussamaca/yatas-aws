@@ -12,7 +12,7 @@ func CheckIfBucketInOneZone(checkConfig commons.CheckConfig, buckets BucketAndNo
 		for _, region := range buckets.NotInRegion {
 			if *bucket.Name == *region.Name {
 				Message := "S3 bucket " + *bucket.Name + " is global but should be in " + checkConfig.ConfigAWS.Region
-				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *bucket.Name}
+				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, *bucket.Name)}
 				check.AddResult(result)
 				found = true
 				break
@@ -20,7 +20,7 @@ func CheckIfBucketInOneZone(checkConfig commons.CheckConfig, buckets BucketAndNo
 		}
 		if !found {
 			Message := "S3 bucket " + *bucket.Name + " is in " + checkConfig.ConfigAWS.Region
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *bucket.Name}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, *bucket.Name)}
 			check.AddResult(result)
 		}
 	}

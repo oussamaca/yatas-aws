@@ -66,3 +66,8 @@ func GetVolumes(s aws.Config) []types.Volume {
 	}
 	return volumes
 }
+
+// GetVolumeArn returns the arn of a volume
+func GetVolumeArn(s aws.Config, volume types.Volume) string {
+	return "arn:aws:ec2:" + s.Region + "::volume/" + *volume.VolumeId
+}

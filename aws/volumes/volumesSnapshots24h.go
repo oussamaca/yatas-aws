@@ -22,11 +22,11 @@ func CheckIfSnapshotYoungerthan24h(checkConfig commons.CheckConfig, vs couple, t
 		}
 		if !snapshotYoungerThan24h {
 			Message := "Volume " + *volume.VolumeId + " has no snapshot younger than 24h"
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *volume.VolumeId}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVolumeArn(checkConfig.ConfigAWS, volume)}
 			check.AddResult(result)
 		} else {
 			Message := "Volume " + *volume.VolumeId + " has snapshot younger than 24h"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *volume.VolumeId}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVolumeArn(checkConfig.ConfigAWS, volume)}
 			check.AddResult(result)
 		}
 	}

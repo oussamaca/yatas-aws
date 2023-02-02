@@ -10,11 +10,11 @@ func checkIfOnlyOneGateway(checkConfig commons.CheckConfig, vpcInternetGateways 
 	for _, vpcInternetGateway := range vpcInternetGateways {
 		if len(vpcInternetGateway.InternetGateways) > 1 {
 			Message := "VPC has more than one gateway on " + vpcInternetGateway.VpcID
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: vpcInternetGateway.VpcID}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, vpcInternetGateway.VpcID)}
 			check.AddResult(result)
 		} else {
 			Message := "VPC has only one gateway on " + vpcInternetGateway.VpcID
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: vpcInternetGateway.VpcID}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, vpcInternetGateway.VpcID)}
 			check.AddResult(result)
 		}
 	}

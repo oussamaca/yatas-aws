@@ -10,11 +10,11 @@ func CheckIf2FAActivated(checkConfig commons.CheckConfig, mfaForUsers []MFAForUs
 	for _, mfaForUser := range mfaForUsers {
 		if len(mfaForUser.MFAs) == 0 {
 			Message := "2FA is not activated on " + mfaForUser.UserName
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: mfaForUser.UserName}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: mfaForUser.UserArn}
 			check.AddResult(result)
 		} else {
 			Message := "2FA is activated on " + mfaForUser.UserName
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: mfaForUser.UserName}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: mfaForUser.UserArn}
 			check.AddResult(result)
 		}
 	}

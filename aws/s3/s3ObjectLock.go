@@ -10,11 +10,11 @@ func CheckIfObjectLockConfigurationEnabled(checkConfig commons.CheckConfig, buck
 	for _, bucket := range buckets {
 		if !bucket.ObjectLock {
 			Message := "S3 bucket " + bucket.BucketName + " is not using retention policy"
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: bucket.BucketName}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, bucket.BucketName)}
 			check.AddResult(result)
 		} else {
 			Message := "S3 bucket " + bucket.BucketName + " is using retention policy"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: bucket.BucketName}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetS3Arn(checkConfig.ConfigAWS, bucket.BucketName)}
 			check.AddResult(result)
 		}
 

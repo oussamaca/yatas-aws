@@ -14,12 +14,12 @@ func CheckAgeAccessKeyLessThan90Days(checkConfig commons.CheckConfig, accessKeys
 		for _, accessKey := range accesskeyforuser.AccessKeys {
 			if now.Sub(*accessKey.CreateDate).Hours() > 2160 {
 				Message := "Access key " + *accessKey.AccessKeyId + " is older than 90 days on " + accesskeyforuser.UserName
-				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: accesskeyforuser.UserName}
+				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: accesskeyforuser.UserArn}
 				check.AddResult(result)
 
 			} else {
 				Message := "Access key " + *accessKey.AccessKeyId + " is younger than 90 days on " + accesskeyforuser.UserName
-				result := commons.Result{Status: "OK", Message: Message, ResourceID: accesskeyforuser.UserName}
+				result := commons.Result{Status: "OK", Message: Message, ResourceID: accesskeyforuser.UserArn}
 				check.AddResult(result)
 			}
 		}

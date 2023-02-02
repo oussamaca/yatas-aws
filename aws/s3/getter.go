@@ -147,3 +147,8 @@ func GetS3ToObjectLock(s aws.Config, b []types.Bucket) []S3ToObjectLock {
 
 	return s3toObjectLock
 }
+
+// GetS3Arn returns the arn of a bucket
+func GetS3Arn(s aws.Config, bucketName string) string {
+	return "arn:aws:s3:::" + bucketName
+}

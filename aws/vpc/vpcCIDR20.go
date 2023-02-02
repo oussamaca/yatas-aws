@@ -17,11 +17,11 @@ func checkCIDR20(checkConfig commons.CheckConfig, vpcs []types.Vpc, testName str
 		cidrInt, _ := strconv.Atoi(strings.Split(cidr, "/")[1])
 		if cidrInt > 20 {
 			Message := "VPC CIDR is not /20 or bigger on " + *vpc.VpcId
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *vpc.VpcId}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, *vpc.VpcId)}
 			check.AddResult(result)
 		} else {
 			Message := "VPC CIDR is /20 or bigger on " + *vpc.VpcId
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *vpc.VpcId}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, *vpc.VpcId)}
 			check.AddResult(result)
 		}
 	}

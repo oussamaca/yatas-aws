@@ -3,6 +3,7 @@ package apigateway
 import (
 	"context"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/apigateway"
 	"github.com/aws/aws-sdk-go-v2/service/apigateway/types"
 )
@@ -75,4 +76,9 @@ func GetAllStagesApiGateway(svc APIGatewayGetObjectAPI, apis []types.RestApi) ma
 
 	}
 	return stages
+}
+
+// GetStageArn returns the arn of an apigateway stage
+func GetStageArn(s aws.Config, apigateway string, stage types.Stage) string {
+	return "arn:aws:apigateway:" + s.Region + "::/restapis/" + apigateway + "/stages/" + *stage.StageName
 }

@@ -11,11 +11,11 @@ func checkIfOnlyOneVPC(checkConfig commons.CheckConfig, vpcs []types.Vpc, testNa
 	for _, vpc := range vpcs {
 		if len(vpcs) > 1 {
 			Message := "VPC Id:" + *vpc.VpcId
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *vpc.VpcId}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, *vpc.VpcId)}
 			check.AddResult(result)
 		} else {
 			Message := "VPC Id:" + *vpc.VpcId
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *vpc.VpcId}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, *vpc.VpcId)}
 			check.AddResult(result)
 		}
 	}

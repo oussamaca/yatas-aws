@@ -14,11 +14,11 @@ func CheckIfSubnetInDifferentZone(checkConfig commons.CheckConfig, vpcToSubnets 
 		}
 		if len(subnetsAZ) > 1 {
 			Message := "Subnets are in different zone on " + vpcToSubnet.VpcID
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: vpcToSubnet.VpcID}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, vpcToSubnet.VpcID)}
 			check.AddResult(result)
 		} else {
 			Message := "Subnets are in same zone on " + vpcToSubnet.VpcID
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: vpcToSubnet.VpcID}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, vpcToSubnet.VpcID)}
 			check.AddResult(result)
 		}
 	}

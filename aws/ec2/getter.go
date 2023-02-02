@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	"github.com/aws/aws-sdk-go-v2/service/ec2/types"
 )
@@ -37,4 +38,9 @@ func GetEC2s(svc EC2GetObjectAPI) []types.Instance {
 	}
 
 	return instances
+}
+
+// GetInstanceArn returns the arn of an instance
+func GetInstanceArn(s aws.Config, instance types.Instance) string {
+	return "arn:aws:ec2:" + s.Region + "::instance/" + *instance.InstanceId
 }

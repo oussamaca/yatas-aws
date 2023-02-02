@@ -11,11 +11,11 @@ func CheckIfVolumesTypeGP3(checkConfig commons.CheckConfig, volumes []types.Volu
 	for _, volume := range volumes {
 		if volume.VolumeType != "gp3" {
 			Message := "Volume " + *volume.VolumeId + " is not of type gp3"
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *volume.VolumeId}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVolumeArn(checkConfig.ConfigAWS, volume)}
 			check.AddResult(result)
 		} else {
 			Message := "Volume " + *volume.VolumeId + " is of type gp3"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *volume.VolumeId}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVolumeArn(checkConfig.ConfigAWS, volume)}
 			check.AddResult(result)
 		}
 	}

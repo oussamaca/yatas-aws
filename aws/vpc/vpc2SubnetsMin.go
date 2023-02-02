@@ -11,11 +11,11 @@ func CheckIfAtLeast2Subnets(checkConfig commons.CheckConfig, vpcToSubnets []VPCT
 
 		if len(vpcToSubnet.Subnets) < 2 {
 			Message := "VPC " + vpcToSubnet.VpcID + " has less than 2 subnets"
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: vpcToSubnet.VpcID}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, vpcToSubnet.VpcID)}
 			check.AddResult(result)
 		} else {
 			Message := "VPC " + vpcToSubnet.VpcID + " has at least 2 subnets"
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: vpcToSubnet.VpcID}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: GetVPCArn(checkConfig.ConfigAWS, vpcToSubnet.VpcID)}
 			check.AddResult(result)
 		}
 	}
