@@ -12,11 +12,11 @@ func CheckIfTracingEnabled(checkConfig commons.CheckConfig, stages map[string][]
 		for _, stage := range id {
 			if stage.TracingEnabled {
 				Message := "Tracing is enabled on stage" + *stage.StageName + " of ApiGateway " + apigateway
-				result := commons.Result{Status: "OK", Message: Message, ResourceID: *stage.StageName}
+				result := commons.Result{Status: "OK", Message: Message, ResourceID: apigateway + "/" + *stage.StageName}
 				check.AddResult(result)
 			} else {
 				Message := "Tracing is not enabled on " + *stage.StageName + " of ApiGateway " + apigateway
-				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *stage.StageName}
+				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: apigateway + "/" + *stage.StageName}
 				check.AddResult(result)
 			}
 		}

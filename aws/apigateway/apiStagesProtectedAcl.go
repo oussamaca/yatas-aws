@@ -12,11 +12,11 @@ func CheckIfStagesProtectedByAcl(checkConfig commons.CheckConfig, stages map[str
 		for _, stage := range id {
 			if stage.WebAclArn != nil && *stage.WebAclArn != "" {
 				Message := "Stage " + *stage.StageName + " is protected by ACL" + " of ApiGateway " + apigateway
-				result := commons.Result{Status: "OK", Message: Message, ResourceID: *stage.StageName}
+				result := commons.Result{Status: "OK", Message: Message, ResourceID: apigateway + "/" + *stage.StageName}
 				check.AddResult(result)
 			} else {
 				Message := "Stage " + *stage.StageName + " is not protected by ACL" + " of ApiGateway " + apigateway
-				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *stage.StageName}
+				result := commons.Result{Status: "FAIL", Message: Message, ResourceID: apigateway + "/" + *stage.StageName}
 				check.AddResult(result)
 			}
 		}

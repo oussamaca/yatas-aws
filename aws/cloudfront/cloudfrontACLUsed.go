@@ -11,11 +11,11 @@ func CheckIfACLUsed(checkConfig commons.CheckConfig, d []SummaryToConfig, testNa
 
 		if cc.config.WebACLId != nil && *cc.config.WebACLId != "" {
 			Message := "ACL is used on " + *cc.summary.Id
-			result := commons.Result{Status: "OK", Message: Message, ResourceID: *cc.summary.Id}
+			result := commons.Result{Status: "OK", Message: Message, ResourceID: *cc.summary.ARN}
 			check.AddResult(result)
 		} else {
 			Message := "ACL is not used on " + *cc.summary.Id
-			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *cc.summary.Id}
+			result := commons.Result{Status: "FAIL", Message: Message, ResourceID: *cc.summary.ARN}
 			check.AddResult(result)
 		}
 	}
