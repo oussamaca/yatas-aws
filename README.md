@@ -129,6 +129,10 @@ export YATAS_LOG_LEVEL=debug
 ```
 The available log levels are: `debug`, `info`, `warn`, `error`, `fatal`, `panic` and `off` by default
 
+### Documentation about checks
+
+More information about each checks can be found [here](docs.md).
+
 <!-- BEGIN_YATAS -->
 
 ## AWS - 63 Checks
